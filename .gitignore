@@ -1,0 +1,39 @@
+# Node.js
+node_modules/
+dist/
+.env
+.env.local
+.env.production
+npm-debug.log*
+
+# Flutter / Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+ios/.generated/
+ios/Pods/
+ios/Runner/GeneratedPluginRegistrant.*
+android/app/src/main/res/drawable-*/
+android/local.properties
+android/key.properties
+android/app/*.jks
+android/app/*.keystore
+android/app/google-services.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Prisma
+/apps/backend/prisma/migrations/
+/apps/backend/prisma/dev.db
+
+# Gemini
+.gemini/

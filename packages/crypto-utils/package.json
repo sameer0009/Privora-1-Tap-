@@ -1,0 +1,8 @@
+{
+  "name": "@1-tap/crypto-utils",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "dependencies": {
+    "@noble/curves": "^1.4.0"
+  }
+}
