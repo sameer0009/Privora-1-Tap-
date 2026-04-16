@@ -20,9 +20,21 @@ class SocketService {
       .enableAutoConnect()
       .build());
 
-    _socket.onConnect((_) => debugPrint('Privora: Connected to Relay Server'));
-    _socket.onDisconnect((_) => debugPrint('Privora: Disconnected from Relay Server'));
-    _socket.onConnectError((e) => debugPrint('Privora: Connection Error: $e'));
+    _socket.onConnect((_) {
+      debugPrint('Privora: ✅ Connected to Relay Server');
+    });
+    
+    _socket.onDisconnect((reason) {
+      debugPrint('Privora: ❌ Disconnected from Relay Server (Reason: $reason)');
+    });
+    
+    _socket.onConnectError((e) {
+      debugPrint('Privora: ⚠️ Connection Error: $e');
+    });
+
+    _socket.onReconnectAttempt((attempt) {
+      debugPrint('Privora: 🔄 Reconnection attempt number $attempt');
+    });
   }
 
   void onReceiveMessage(Function(dynamic) callback) {

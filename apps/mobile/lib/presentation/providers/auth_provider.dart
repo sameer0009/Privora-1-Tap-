@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/repositories/auth_repository.dart';
 import 'base_providers.dart';
+import '../../core/network/background_service_handler.dart';
 
 enum AuthStatus { unknown, authenticated, unauthenticated, loading }
 
@@ -26,6 +27,9 @@ class AuthNotifier extends Notifier<AuthState> {
     final loggedIn = await repository.isLoggedIn();
     print('AuthNotifier: isLoggedIn = $loggedIn');
     state = AuthState(status: loggedIn ? AuthStatus.authenticated : AuthStatus.unauthenticated);
+    if (loggedIn) {
+      BackgroundServiceHandler.start();
+    }
     print('AuthNotifier: Status set to ${state.status}');
   }
 
@@ -35,6 +39,7 @@ class AuthNotifier extends Notifier<AuthState> {
       final repository = ref.read(authRepositoryProvider);
       await repository.login(email, password);
       state = AuthState(status: AuthStatus.authenticated);
+      BackgroundServiceHandler.start();
     } catch (e) {
       state = AuthState(status: AuthStatus.unauthenticated, error: e.toString());
     }
@@ -43,6 +48,7 @@ class AuthNotifier extends Notifier<AuthState> {
   Future<void> logout() async {
     final repository = ref.read(authRepositoryProvider);
     await repository.logout();
+    BackgroundServiceHandler.stop();
     state = AuthState(status: AuthStatus.unauthenticated);
   }
 }

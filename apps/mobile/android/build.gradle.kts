@@ -5,6 +5,9 @@ allprojects {
     }
 }
 
+// Fix for plugins that still use the old Groovy-style $kotlin_version variable
+rootProject.extra.set("kotlin_version", "2.2.20")
+
 val newBuildDir: Directory =
     rootProject.layout.buildDirectory
         .dir("../../build")

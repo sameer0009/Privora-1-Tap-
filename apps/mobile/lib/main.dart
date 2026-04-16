@@ -14,7 +14,14 @@ import 'presentation/screens/profile/profile_screen.dart';
 import 'presentation/screens/settings/settings_screen.dart';
 import 'presentation/screens/security/security_center.dart';
 
-void main() {
+import 'core/network/background_service_handler.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  // Initialize background service for persistent connection
+  await BackgroundServiceHandler.init();
+  
   runApp(const ProviderScope(child: PrivoraApp()));
 }
 

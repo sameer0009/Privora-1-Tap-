@@ -1,7 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../data/repositories/chat_repository.dart';
 import '../../core/network/socket_service.dart';
 import '../../core/network/webrtc_manager.dart';
+import '../../core/network/connectivity_service.dart';
 import 'base_providers.dart';
 import 'auth_provider.dart';
 
@@ -57,6 +58,21 @@ class ChatNotifier extends Notifier<List<ChatMessage>> {
     
     state = [...state, myMsg];
 
+    // Adaptive Routing Logic
+    final connectivity = ref.read(connectivityServiceProvider.notifier);
+    
+    try {
+      if (connectivity.isOnWifi) {
+        // Prefer WebRTC P2P on Local Network
+        debugPrint('Privora: Attempting P2P delivery...');
+        await _webrtc.sendDirectMessage(text);
+        // Note: In this MVP, we fallback to Socket if Send fails or isn't open yet.
+      }
+    } catch (e) {
+       debugPrint('Privora: Direct P2P failed, falling back to Relay...');
+    }
+
+    // Always ensure relay delivery for reliability in this build
     final repository = ref.read(chatRepositoryProvider);
     await repository.sendMessage(
       peerDeviceId: deviceId,
@@ -88,4 +104,3 @@ final socketServiceProvider = Provider<SocketService>((ref) {
 final webrtcManagerProvider = Provider<WebRTCManager>((ref) {
   return WebRTCManager(ref.read(socketServiceProvider));
 });
-
