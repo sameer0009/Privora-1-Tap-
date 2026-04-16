@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:convert';
 import 'package:nsd/nsd.dart';
 import 'package:flutter/foundation.dart';
 
@@ -15,7 +15,7 @@ class LocalDiscoveryManager {
           name: name,
           type: serviceType,
           port: 8080, // Target port for P2P communication
-          txt: {'deviceId': deviceId},
+          txt: {'deviceId': Uint8List.fromList(utf8.encode(deviceId))},
         ),
       );
       debugPrint('Privora: Advertising device as $name ($deviceId)');
@@ -25,7 +25,7 @@ class LocalDiscoveryManager {
   }
 
   /// Discover other Privora devices on the same network
-  Future<void> startDiscovery(Function(Service) onDeviceFound) async {
+  Future<void> discoverDevices(Function(Service) onDeviceFound) async {
     try {
       _discovery = await startDiscovery(serviceType);
       _discovery?.addServiceListener((service, status) {

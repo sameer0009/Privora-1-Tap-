@@ -59,7 +59,7 @@ class AppTheme {
       floatingLabelStyle: const TextStyle(color: primaryGreen),
     ),
 
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: surfaceGrey,
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),

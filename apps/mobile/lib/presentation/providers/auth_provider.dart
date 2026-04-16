@@ -7,8 +7,13 @@ enum AuthStatus { unknown, authenticated, unauthenticated, loading }
 class AuthState {
   final AuthStatus status;
   final String? error;
+  final String deviceId;
 
-  AuthState({required this.status, this.error});
+  AuthState({
+    required this.status, 
+    this.error, 
+    this.deviceId = 'test-device-id',
+  });
 }
 
 class AuthNotifier extends Notifier<AuthState> {

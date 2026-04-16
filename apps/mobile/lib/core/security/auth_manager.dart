@@ -19,19 +19,6 @@ class AuthManager {
     try {
       final bool didAuthenticate = await _localAuth.authenticate(
         localizedReason: 'Access your Privora Vault',
-        options: const AuthenticationOptions(
-          stickyAuth: true,
-          biometricOnly: true,
-        ),
-        authMessages: const <AuthMessages>[
-          AndroidAuthMessages(
-            signInTitle: 'Biometric Login',
-            deviceCredentialsRequiredTitle: 'Biometric required to unlock vault',
-          ),
-          IOSAuthMessages(
-            cancelButton: 'No thanks',
-          ),
-        ],
       );
       return didAuthenticate;
     } catch (e) {

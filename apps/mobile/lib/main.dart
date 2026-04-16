@@ -7,6 +7,8 @@ import 'presentation/screens/dashboard/dashboard_screen.dart';
 import 'presentation/screens/dashboard/chat_screen.dart';
 import 'presentation/providers/auth_provider.dart';
 
+import 'presentation/screens/auth/signup_screen.dart';
+
 import 'core/theme/app_theme.dart';
 import 'presentation/screens/profile/profile_screen.dart';
 import 'presentation/screens/settings/settings_screen.dart';
