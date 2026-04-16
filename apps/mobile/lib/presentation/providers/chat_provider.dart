@@ -81,8 +81,8 @@ final chatProvider = NotifierProvider<ChatNotifier, List<ChatMessage>>(ChatNotif
 
 // Added providers for new services
 final socketServiceProvider = Provider<SocketService>((ref) {
-  // Use 10.0.2.2 for Android Emulator
-  return SocketService('http://10.0.2.2:3001', ref.read(authManagerProvider));
+  // Use PC local IP for Physical Android devices
+  return SocketService('http://192.168.100.32:3001', ref.read(authManagerProvider));
 });
 
 final webrtcManagerProvider = Provider<WebRTCManager>((ref) {

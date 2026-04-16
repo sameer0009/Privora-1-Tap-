@@ -38,7 +38,11 @@ final _routerProvider = Provider<GoRouter>((ref) {
         return null;
       }
 
-      if (isProtected) return '/login';
+      if (authState.status == AuthStatus.unauthenticated) {
+        if (isSplash) return '/login';
+        if (isProtected) return '/login';
+      }
+
       return null;
     },
     routes: [
@@ -68,7 +72,7 @@ class PrivoraApp extends ConsumerWidget {
     final router = ref.watch(_routerProvider);
     
     return MaterialApp.router(
-      title: 'Privora Secure',
+      title: 'Privora 1-Tap',
       routerConfig: router,
       theme: AppTheme.darkTheme,
       debugShowCheckedModeBanner: false,

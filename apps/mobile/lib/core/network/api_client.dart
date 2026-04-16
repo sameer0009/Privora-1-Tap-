@@ -5,7 +5,7 @@ class ApiClient {
   late final Dio _dio;
   final _storage = const FlutterSecureStorage();
 
-  ApiClient({String baseUrl = 'http://10.0.2.2:3001'}) {
+  ApiClient({String baseUrl = 'http://192.168.100.32:3001'}) {
     _dio = Dio(BaseOptions(
       baseUrl: baseUrl,
       connectTimeout: const Duration(seconds: 5),
